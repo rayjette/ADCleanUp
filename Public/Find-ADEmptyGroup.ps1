@@ -5,8 +5,7 @@ Function Find-ADEmptyGroup
         Finds empty Active Directory groups.
 
         .DESCRIPTION
-        Finds empty Active Directory groups.  An empty group is one which does not have any members.
-        Built-in Windows Gropus (Cricital System Objects) and Exchange built-in groups are not considered.
+        Finds empty Active Directory groups.  An empty group is one which does not have any members.  Built-in Windows Gropus (Cricital System Objects) and Exchange built-in groups are not considered.
     
         .PARAMETER SearchBase
         SearchBase can be used to specify where in the directory to search from.
@@ -27,9 +26,10 @@ Function Find-ADEmptyGroup
 
     #>
     [OutputType([Microsoft.ActiveDirectory.Management.ADGroup])]
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName='Default')]
     param 
     (
+        [Parameter(Mandatory, ParameterSetName='SearchBase')]
         [ValidateNotNullOrEmpty()]
         [string]$SearchBase
     )
