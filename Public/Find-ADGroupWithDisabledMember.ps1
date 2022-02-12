@@ -10,6 +10,9 @@ Function Find-ADGroupWithDisabledMember
         .PARAMETER Name
         The name of one or more groups to search of disabled members.
 
+        .PARAMETER Type
+        The group type to search.  Accepted values are security and distribution.  If not specified all groups types are searched.
+
         .EXAMPLE
         Find-ADGroupWithDisabledMember
         Finds groups with disabled members.
@@ -17,6 +20,10 @@ Function Find-ADGroupWithDisabledMember
         .EXAMPLE
         Find-ADGroupWithDisabledMember -SearchBase 'OU=Groups,DC=MyDomain,DC=com'
         Finds groups with disabled members at the location sepcified by SearchBase.
+
+        .EXAMPLE
+        Find-ADGroupWithDisabledmember -Type Distribution
+        Finds distribution groups with disabled members.
 
         .INPUTS
         None.  Find-ADGroupWithDeletedMember does not accept input via the pipeline.
@@ -29,7 +36,10 @@ Function Find-ADGroupWithDisabledMember
     Param (
         [Parameter(Mandatory, ParameterSetName='SearchBase')]
         [ValidateNotNullOrEmpty]
-        [string]$SearchBase
+        [string]$SearchBase,
+
+        [ValidateSet('Security', 'Distribution')]
+        [string]$Type
     )
     # The parameters to pass to Get-ADGroup
     $splat = @{Filter = '*'}
@@ -43,10 +53,14 @@ Function Find-ADGroupWithDisabledMember
     # Get groups from Active Directory.
     $groups = Get-ADGroup @splat
 
+    # If the type parameter is specified, only look at those groups
+    if ($PSBoundParameters.ContainsKey('Type'))
+    {
+        $groups = $groups | Where-Object {$_.GroupCategory -eq $type}
+    }
+
     # Initialize a counter for the progress bar
     $count = 0
-
-
 
     foreach ($group in $groups)
     {
