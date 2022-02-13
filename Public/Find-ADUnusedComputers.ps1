@@ -78,7 +78,7 @@ Function Find-ADUnusedComputers {
     # If the OnlyNeverLogon parameter is present output computers which have never logged on.
     elseif ($PSBoundParameters.ContainsKey('OnlyNeverLogon'))
     {
-        $computers | Where-Object {$_.LastLogonDate -eq $null}
+        $computers | Where-Object {$null -eq $_.LastLogonDate}
     }
     # Output all computers which have not logged on since or before $filterDate.
     else
