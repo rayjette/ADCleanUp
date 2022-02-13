@@ -6,3 +6,4 @@
 - Find-ADEmptyGroup</br>
 - Find-ADGroupWithDisabledMember</br>
 - Find-ADUnusedComputers
+- Find-ADUnusedUsers
