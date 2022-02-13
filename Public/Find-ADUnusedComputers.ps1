@@ -32,7 +32,6 @@ Function Find-ADUnusedComputers {
         .OUTPUTS
         Microsoft.ActiveDirectory.Management.ADComputer
     #>
-    #Requires -Modules ActiveDirectory
     [OutputType([Microsoft.ActiveDirectory.Management.ADComputer])]
     [CmdletBinding(DefaultParameterSetName='Default')]
     Param (

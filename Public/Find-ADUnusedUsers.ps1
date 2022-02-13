@@ -32,7 +32,6 @@ Function Find-ADUnusedUsers {
         .OUTPUTS
         Microsoft.ActiveDirectory.Management.ADUser
     #>
-    #Requires -Modules ActiveDirectory
     [OutputType([Microsoft.ActiveDirectory.Management.ADUser])]
     [CmdletBinding(DefaultParameterSetName='Default')]
     Param (
