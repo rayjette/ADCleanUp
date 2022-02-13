@@ -69,7 +69,7 @@ Function Find-ADUnusedComputers {
     {
         foreach ($computer in $computers)
         {
-            if (-not (Test-IsADComputerEnabled -Identity $computer.name))
+            if (-not (Test-IsADComputerEnabled -Identity $computer.samaccountname))
             {
                 $computer
             }
