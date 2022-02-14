@@ -8,3 +8,4 @@
 - Find-ADUnusedComputers
 - Find-ADUnusedUsers
 - Find-ADUnlinkedGPO
+- Find-ADEmptyOrganizationalUnit
