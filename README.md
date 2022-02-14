@@ -7,5 +7,6 @@
 - Find-ADGroupWithDisabledMember</br>
 - Find-ADUnusedComputers
 - Find-ADUnusedUsers
-- Find-ADUnlinkedGPO
 - Find-ADEmptyOrganizationalUnit
+- Find-ADUnlinkedGPO
+- Find-ADEmptyGPO
