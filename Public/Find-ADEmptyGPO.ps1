@@ -31,11 +31,5 @@ Function Find-ADEmptyGPO
     $GPOs = Get-GPO -All
 
     # If an empty gpo is found, output it.
-    foreach ($gpo in $GPOs)
-    {
-        if (Test-IsGPOEmpty -GPO $gpo)
-        {
-            $gpo
-        }
-    }
+    $GPOs.where({Test-IsGPOEmpty -GPO $PSItem})
 } # Find-ADEmptyGRO
