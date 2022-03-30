@@ -33,9 +33,8 @@ Function Find-ADUnusedComputers {
         Microsoft.ActiveDirectory.Management.ADComputer
     #>
     [OutputType([Microsoft.ActiveDirectory.Management.ADComputer])]
-    [CmdletBinding(DefaultParameterSetName='Default')]
+    [CmdletBinding(DefaultParameterSetName = 'Default')]
     Param (
-        [Parameter(Mandatory, ParameterSetName='Days')]
         [ValidateNotNullOrEmpty()]
         [Int32]$Days = 90,
 
