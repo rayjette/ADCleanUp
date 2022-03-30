@@ -32,9 +32,8 @@ Function Find-ADGroupWithDisabledMember
         System.Management.Automation.PSCustomObject.
     #>
     [OutputType([System.Management.Automation.PSCustomObject])]
-    [CmdletBinding(DefaultParameterSetName='Default')]
+    [CmdletBinding()]
     Param (
-        [Parameter(Mandatory, ParameterSetName='SearchBase')]
         [ValidateNotNullOrEmpty()]
         [string]$SearchBase,
 
