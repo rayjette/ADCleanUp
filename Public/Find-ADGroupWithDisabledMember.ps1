@@ -35,7 +35,7 @@ Function Find-ADGroupWithDisabledMember
     [CmdletBinding(DefaultParameterSetName='Default')]
     Param (
         [Parameter(Mandatory, ParameterSetName='SearchBase')]
-        [ValidateNotNullOrEmpty]
+        [ValidateNotNullOrEmpty()]
         [string]$SearchBase,
 
         [ValidateSet('Security', 'Distribution')]
