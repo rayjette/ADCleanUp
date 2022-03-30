@@ -35,7 +35,6 @@ Function Find-ADUnusedUsers {
     [OutputType([Microsoft.ActiveDirectory.Management.ADUser])]
     [CmdletBinding(DefaultParameterSetName='Default')]
     Param (
-        [Parameter(Mandatory, ParameterSetName='Days')]
         [ValidateNotNullOrEmpty()]
         [Int32]$Days = 90,
 
