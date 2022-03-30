@@ -33,10 +33,9 @@ Function Find-ADEmptyGroup
 
     #>
     [OutputType([Microsoft.ActiveDirectory.Management.ADGroup])]
-    [CmdletBinding(DefaultParameterSetName='Default')]
+    [CmdletBinding()]
     param 
     (
-        [Parameter(Mandatory, ParameterSetName='SearchBase')]
         [ValidateNotNullOrEmpty()]
         [string]$SearchBase,
 
