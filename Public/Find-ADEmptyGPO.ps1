@@ -2,25 +2,28 @@ Function Find-ADEmptyGPO
 {
     <#
         .SYNOPSIS
-        Finds empty GPO's.  An empty GPO is one in which settings have never been defined.
+        Returns unused group policy objects.
 
         .DESCRIPTION
-        Finds empty GPO's.  An empty GPO is one in which settings have never been defined.
-        
-        This works by checking both the user and computer dsversion values and if they are
-        both 0 the GPO will be returned as empty.  Because of the way the dsversion values
-        are used, GPO's will not be returned as empty if settings have been changed and then
-        removed at a later time.
+        Returns unused group policy objects.
+
+        Returns group policy objects which have never had there settings modified after creation.
+        If the settings were modified and then changed back the gpo will not be returned because
+        we are looking at the dsversion value on the gpo.
 
         .EXAMPLE
         Find-ADEmptyGPO
-        Finds empty Group Policy objects in Active Dirctory.
+
+        Return group policy objects that have never been altered. 
 
         .INPUTS
         None.  Find-ADEmptyGPO does not except input via the pipeline.
 
         .OUTPUTS
         Microsoft.GroupPolicy.Gpo
+
+        .NOTES
+        https://github.com/rayjette/ADCleanUp.git
     #>
     [OutputType([Microsoft.GroupPolicy.Gpo])]
     [CmdletBinding()]
