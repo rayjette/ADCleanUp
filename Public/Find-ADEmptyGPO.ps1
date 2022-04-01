@@ -24,12 +24,12 @@ Function Find-ADEmptyGPO
     #>
     [OutputType([Microsoft.GroupPolicy.Gpo])]
     [CmdletBinding()]
-    param (
+    param ()
 
-    )
     # Get group policy objects from Active Directory
     $GPOs = Get-GPO -All
 
-    # If an empty gpo is found, output it.
-    $GPOs.where({Test-IsGPOEmpty -GPO $PSItem})
-} # Find-ADEmptyGRO
+    # Return Group Policy Objects which have never been altered.  Since we are looking at the dsversion
+    # any GPO which has had it's setting modified and then removed will not be returned.
+    $GPOs | Where-Object {$_.user.dsversion -eq 0 -and $_.computer.dsversion -eq 0}
+}
