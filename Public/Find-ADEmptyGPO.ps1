@@ -11,6 +11,9 @@ Function Find-ADEmptyGPO
         If the settings were modified and then changed back the gpo will not be returned because
         we are looking at the dsversion value on the gpo.
 
+        .PARAMETER OnlyLinked
+        Only linked group policy objects will be considered when looking for empty ones.
+
         .EXAMPLE
         Find-ADEmptyGPO
 
@@ -27,12 +30,29 @@ Function Find-ADEmptyGPO
     #>
     [OutputType([Microsoft.GroupPolicy.Gpo])]
     [CmdletBinding()]
-    param ()
-
+    param (
+        [switch] $OnlyLinked
+    )
     # Get group policy objects from Active Directory
     $GPOs = Get-GPO -All
 
-    # Return Group Policy Objects which have never been altered.  Since we are looking at the dsversion
+    # Save Group Policy Objects which have never been altered.  Since we are looking at the dsversion
     # any GPO which has had it's setting modified and then removed will not be returned.
-    $GPOs | Where-Object {$_.user.dsversion -eq 0 -and $_.computer.dsversion -eq 0}
+    $unmodifiedGpo = $GPOs | Where-Object {$_.user.dsversion -eq 0 -and $_.computer.dsversion -eq 0}
+
+    # Return unmodified group policy objects.
+    if ($PSBoundParameters.ContainsKey('OnlyLinked'))
+    {
+        $unmodifiedGpo | ForEach-Object {
+            $report = Get-GPOReport -ReportType 'xml' -Name $PSItem.displayname
+            if ($report.PSItem.psobject.properties.name -contains 'LinksTo')
+            {
+                $PSItem
+            }
+        }
+    }
+    else
+    {
+        $unmodifiedGpo    
+    }
 }
