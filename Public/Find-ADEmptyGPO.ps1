@@ -41,18 +41,18 @@ Function Find-ADEmptyGPO
     $unmodifiedGpo = $GPOs | Where-Object {$_.user.dsversion -eq 0 -and $_.computer.dsversion -eq 0}
 
     # Return unmodified group policy objects.
+    $results = @($unmodifiedGPO)
     if ($PSBoundParameters.ContainsKey('OnlyLinked'))
     {
-        $unmodifiedGpo | ForEach-Object {
-            $report = Get-GPOReport -ReportType 'xml' -Name $PSItem.displayname
-            if ($report.PSItem.psobject.properties.name -contains 'LinksTo')
+        $results = @()
+        foreach ($gpo in $unmodifiedGpo)
+        {
+            [xml] $report = Get-GPOReport -ReportType 'xml' -Name $gpo.displayname
+            if ($report.gpo.psobject.properties.name -contains 'LinksTo')
             {
-                $PSItem
+                $results += $gpo
             }
         }
     }
-    else
-    {
-        $unmodifiedGpo    
-    }
+    $results    
 }
